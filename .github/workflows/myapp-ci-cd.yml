@@ -1,4 +1,4 @@
-name: myapp-Ci-Cd
+name: myapp-ci-cd
 
 on:
   push:
@@ -48,7 +48,7 @@ jobs:
       id: build_image
       run: |
         DOCKERHUB_REPO="geniamali/myapp"
-        docker build --file myapp/Dockerfile -t ${DOCKERHUB_REPO}:${{ env.new_version }} -t ${DOCKERHUB_REPO}:latest ${{ env.package_dir }}
+        docker build --file myapp/Dockerfile -t ${DOCKERHUB_REPO}:${{ env.new_version }} -t ${DOCKERHUB_REPO}:latest .
         echo "repo=$DOCKERHUB_REPO" >> $GITHUB_ENV
 
     - name: DockerHub login
