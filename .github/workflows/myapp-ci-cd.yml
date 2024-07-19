@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  build:
+  build_containerize_and_run:
     runs-on: ubuntu-latest
 
     steps:
@@ -40,9 +40,8 @@ jobs:
         git push origin master
 
     - name: Package
-      run: |
-        mvn -B package -f myapp/pom.xml
-        echo "package_dir=$(pwd)/myapp/target" >> $GITHUB_ENV
+      run: mvn -B package -f myapp/pom.xml
+
 
     - name: Build Docker image
       id: build_image
@@ -62,6 +61,7 @@ jobs:
         docker push ${{ env.repo }}:latest
         docker push ${{ env.repo }}:${{ env.new_version }}
 
-    - name: Run Docker image
+    - name: Pull and run Docker image
       run: |
-        docker run -d ${{ env.repo }}:latest
+        docker pull ${{ env.repo }}:latest
+        docker run ${{ env.repo }}:latest
