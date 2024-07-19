@@ -40,13 +40,15 @@ jobs:
         git push origin master
 
     - name: Package
-      run: mvn -B package -f myapp/pom.xml
+      run: |
+        mvn -B package -f myapp/pom.xml
+        echo "package_dir=$(pwd)/myapp/target" >> $GITHUB_ENV
 
     - name: Build Docker image
       id: build_image
       run: |
         DOCKERHUB_REPO="geniamali/myapp"
-        docker build --file myapp/Dockerfile -t ${DOCKERHUB_REPO}:${{ env.new_version }} -t ${DOCKERHUB_REPO}:latest .
+        docker build --file myapp/Dockerfile -t ${DOCKERHUB_REPO}:${{ env.new_version }} -t ${DOCKERHUB_REPO}:latest ${{ env.package_dir }}
         echo "repo=$DOCKERHUB_REPO" >> $GITHUB_ENV
 
     - name: DockerHub login
