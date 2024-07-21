@@ -8,4 +8,6 @@ COPY --chown=myappuser:myappgroup myapp/target/build/*.jar myapp.jar
 
 USER myappuser
 
-ENTRYPOINT ["java", "-jar", "myapp.jar"]
+#ENTRYPOINT ["java", "-jar", "myapp.jar"]
+# making sure the container wont crash the pod:
+CMD ["sh", "-c", "java -jar /app/myapp.jar && tail -f /dev/null"]
