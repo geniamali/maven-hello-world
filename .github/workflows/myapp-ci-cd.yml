@@ -47,6 +47,15 @@ jobs:
         name: myapp
         path: target/myapp.jar
 
+    - name: Make dir for aritfact to be used in the build
+      run: mkdir -p target/build
+
+    - name: Download the artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: myapp
+        path: target/build
+      
     - name: Build Docker image
       id: build_image
       run: |
