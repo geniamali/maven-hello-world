@@ -45,7 +45,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: myapp
-        path: target/myapp.jar
+        path: target/*.jar
 
     - name: Make dir for aritfact to be used in the build
       run: mkdir -p target/build
