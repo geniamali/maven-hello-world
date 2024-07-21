@@ -45,19 +45,19 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: myapp
-        path: target/*.jar
+        path: myapp/target/*.jar
 
     - name: Make dir for aritfact to be used in the build
-      run: mkdir -p target/build
+      run: mkdir -p myapp/target/build
 
     - name: List target directory contents
-      run: ls -la target
+      run: pwd && ls -la myapp/target
 
     - name: Download the artifact
       uses: actions/download-artifact@v2
       with:
         name: myapp
-        path: target/build/
+        path: myapp/target/build/
       
     - name: Build Docker image
       id: build_image
