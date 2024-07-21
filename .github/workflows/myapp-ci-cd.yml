@@ -30,15 +30,15 @@ jobs:
         echo "New version: $new_version"
         echo "new_version=$new_version" >> $GITHUB_ENV
 
-    - name: Push new version
+    - name: Push new pom
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git add myapp/pom.xml
         git commit -m "Bump version to ${{ env.new_version }}"
         git push origin master
-
-    - name: Package
+    
+    - name: Package java code
       run: mvn -B package -f myapp/pom.xml
 
 
