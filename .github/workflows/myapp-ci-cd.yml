@@ -19,8 +19,7 @@ jobs:
         distribution: 'corretto'
         java-version: '8'
 
-    - name: Bump version
-      id: bump_version
+    - name: Bump patch version
       run: |
         POM_FILE="myapp/pom.xml"
         current_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout -f $POM_FILE)
