@@ -38,9 +38,14 @@ jobs:
         git commit -m "Bump version to ${{ env.new_version }}"
         git push origin master
     
-    - name: Package java code
+    - name: Compile & Package java code
       run: mvn -B package -f myapp/pom.xml
 
+    - name: Store artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: myapp
+        path: target/myapp.jar
 
     - name: Build Docker image
       id: build_image
@@ -63,4 +68,4 @@ jobs:
     - name: Pull and run Docker image
       run: |
         docker pull ${{ env.repo }}:latest
-        docker run ${{ env.repo }}:latest
+        docker run --rm ${{ env.repo }}:latest
